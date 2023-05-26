@@ -32,7 +32,7 @@ func Test_tri_String(t *testing.T) {
 
 }
 
-func TestNewString_zero(t *testing.T) {
+func Test_new_zero(t *testing.T) {
 	id := new(0)
 	err := expect(0, len(id.rand))
 	if err != nil {

@@ -30,15 +30,6 @@ type tri struct {
 	rand    []byte
 }
 
-// parse a tri from a b64 encoded string.
-func parse(v string) (*tri, error) {
-	b, err := base64.RawURLEncoding.DecodeString(v)
-	if err != nil {
-		return nil, fmt.Errorf("invalid format: expected base64 RawURLEncoding: %w", err)
-	}
-	return decodeBytes(b)
-}
-
 // new generates a new tri with a given amount of randomness.
 func new(rand int) *tri {
 	t := &tri{
