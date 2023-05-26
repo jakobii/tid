@@ -15,13 +15,21 @@ func expect[T comparable](want T, got T) error {
 func Test_tri_String(t *testing.T) {
 	id := &tri{
 		seconds: 1685084038, // unix epoch
-		rand:    []byte("💩"),
+		rand:    nil,
 	}
 
-	err := expect("hldwZPCfkqk", id.String())
+	err := expect("hldwZA", id.String())
 	if err != nil {
 		t.Fatal(err)
 	}
+
+	id.rand = []byte("💩")
+
+	err = expect("hldwZPCfkqk", id.String())
+	if err != nil {
+		t.Fatal(err)
+	}
+
 }
 
 func TestNewString_zero(t *testing.T) {
