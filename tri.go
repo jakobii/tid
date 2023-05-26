@@ -24,28 +24,6 @@ func Time() string {
 	return new(0).String()
 }
 
-// Mod modifies a tri to a given level of randomness. the time is preserved.
-func Mod(id string, rand int) string {
-	tri, err := parse(id)
-	if err != nil {
-		return New(rand)
-	}
-	if rand < 0 {
-		rand = 0
-	}
-	switch origRand := len(tri.rand); {
-	case rand < origRand:
-		tri.rand = tri.rand[:rand]
-		return tri.String()
-	case rand > origRand:
-		newRand := rand - origRand
-		tri.rand = append(tri.rand, random(newRand)...)
-		return tri.String()
-	default:
-		return id
-	}
-}
-
 // tri is a unique id based on unix epoch time + random value.
 type tri struct {
 	seconds uint32
