@@ -14,8 +14,8 @@ func New(rand int) string {
 	return new(rand).String()
 }
 
-// NewUUID return a TRI with a similar amount of collision safety as a uuid.
-func NewUUID() string {
+// UID return an id with a similar amount of collision safety as a uuid.
+func UID() string {
 	return new(12).String() //  bin(tri.seconds) + rand(12) = 16
 }
 
