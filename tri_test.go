@@ -13,19 +13,19 @@ func assertEq[T comparable](want T, got T) error {
 }
 
 func Test_tri_String(t *testing.T) {
-	id := &tri{
+	id := Tri{
 		seconds: 1685084038, // unix epoch
 		rand:    nil,
 	}
 
-	err := expect("hldwZA", id.String())
+	err := assertEq("hldwZA", id.String())
 	if err != nil {
 		t.Fatal(err)
 	}
 
 	id.rand = []byte("💩")
 
-	err = expect("hldwZPCfkqk", id.String())
+	err = assertEq("hldwZPCfkqk", id.String())
 	if err != nil {
 		t.Fatal(err)
 	}
@@ -33,31 +33,30 @@ func Test_tri_String(t *testing.T) {
 }
 
 func Test_new_zero(t *testing.T) {
-	id := new(0)
-	err := expect(0, len(id.rand))
+	id := New(0)
+	err := assertEq(0, len(id.rand))
 	if err != nil {
 		t.Fatal(err)
 	}
 }
 
 func Test_tri_encode_decode_bytes(t *testing.T) {
-	id := new(2)
+	id := New(2)
 
 	b := id.encodeBytes()
 
-	id2, err := decodeBytes(b)
-	if err != nil {
+	var id2 Tri
+	if err := id2.decodeBytes(b); err != nil {
 		t.Fatal(err)
 	}
 
-	err = expect(id.String(), id2.String())
-	if err != nil {
+	if err := assertEq(id.String(), id2.String()); err != nil {
 		t.Fatal(err)
 	}
 }
 
 func Benchmark_tri_encodeBytes2(b *testing.B) {
-	id := new(12)
+	id := New(12)
 	for n := 0; n < b.N; n++ {
 		id.encodeBytes()
 	}
