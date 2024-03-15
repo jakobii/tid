@@ -5,7 +5,7 @@ import (
 	"testing"
 )
 
-func expect[T comparable](want T, got T) error {
+func assertEq[T comparable](want T, got T) error {
 	if want != got {
 		return fmt.Errorf("want: %v, got: %v", want, got)
 	}
